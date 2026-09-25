@@ -1,0 +1,2356 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Engjell Dervishi · SAP Consultant</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    :root {
+      --primary: #0f2744;
+      --primary-light: #1e3a8a;
+      --accent: #2563eb;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --radius: 10px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Navbar */
+    .navbar {
+      background-color: #ffffff;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .nav-container {
+      max-width: 1040px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 24px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .nav-brand {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+    }
+
+    .nav-brand-badge {
+      font-size: 0.75rem;
+      background: #f1f5f9;
+      color: var(--primary);
+      padding: 3px 10px;
+      border-radius: 4px;
+      font-weight: 600;
+      border: 1px solid #cbd5e1;
+      letter-spacing: 0.5px;
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 6px;
+      list-style: none;
+    }
+
+    .nav-item button {
+      background: transparent;
+      border: none;
+      padding: 8px 16px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .nav-item button:hover {
+      color: var(--primary);
+      background-color: #e2e8f0;
+    }
+
+    .nav-item button.active {
+      color: #ffffff;
+      background-color: var(--primary);
+    }
+
+    /* Language Switcher Dropdown */
+    .lang-dropdown-wrapper {
+      position: relative;
+      margin-left: 10px;
+    }
+
+    .lang-trigger-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 6px 12px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--primary);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+
+    .lang-trigger-btn:hover {
+      background: #f8fafc;
+      border-color: #94a3b8;
+    }
+
+    .flag-icon {
+      width: 20px;
+      height: 15px;
+      object-fit: cover;
+      border-radius: 2px;
+      display: inline-block;
+      vertical-align: middle;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    }
+
+    .lang-menu-dropdown {
+      position: absolute;
+      top: calc(100% + 6px);
+      right: 0;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.15);
+      min-width: 160px;
+      padding: 6px 0;
+      display: none;
+      z-index: 1200;
+    }
+
+    .lang-menu-dropdown.show {
+      display: block;
+      animation: fadeIn 0.15s ease-out;
+    }
+
+    .lang-option {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 14px;
+      background: transparent;
+      border: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-main);
+      text-align: left;
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+
+    .lang-option:hover {
+      background: #f1f5f9;
+      color: var(--primary);
+    }
+
+    .lang-option.active {
+      color: var(--primary);
+      background-color: #e2e8f0;
+      font-weight: 700;
+    }
+
+    /* Main Container */
+    .main-wrapper {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 60px 24px;
+      flex-grow: 1;
+      width: 100%;
+    }
+
+    /* Hero Banner */
+    .hero-banner {
+      background: linear-gradient(135deg, #0f2744 0%, #1e3a8a 100%);
+      color: #ffffff;
+      padding: 40px;
+      border-radius: var(--radius);
+      margin-bottom: 32px;
+      box-shadow: 0 10px 25px -5px rgba(15, 39, 68, 0.2);
+    }
+
+    .hero-title {
+      font-size: 2.3rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 6px;
+    }
+
+    .hero-subtitle {
+      font-size: 1.2rem;
+      color: #93c5fd;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .hero-text {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: #e2e8f0;
+      max-width: 860px;
+      margin-bottom: 24px;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 10px 22px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      border: none;
+    }
+
+    .btn-light {
+      background: #ffffff;
+      color: var(--primary);
+    }
+
+    .btn-light:hover {
+      background: #f1f5f9;
+      transform: translateY(-1px);
+    }
+
+    .btn-outline-light {
+      background: transparent;
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+    }
+
+    .btn-outline-light:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: #ffffff;
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #ffffff;
+    }
+
+    .btn-primary:hover {
+      background: #1e3a5f;
+    }
+
+    /* Grid & Cards */
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    }
+
+    .card:hover {
+      border-color: #cbd5e1;
+    }
+
+    .section-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 2px solid #f1f5f9;
+      padding-bottom: 10px;
+    }
+
+    .stat-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .stat-icon {
+      font-size: 1.8rem;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    .stat-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .stat-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* Timeline */
+    .timeline-item {
+      position: relative;
+      padding-left: 28px;
+      margin-bottom: 28px;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: 7px;
+      top: 6px;
+      bottom: -28px;
+      width: 2px;
+      background: #e2e8f0;
+    }
+
+    .timeline-item:last-child::before {
+      display: none;
+    }
+
+    .timeline-item::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 6px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 4px solid var(--primary);
+    }
+
+    .timeline-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 4px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .job-role {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .job-period {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--primary-light);
+      background: #eff6ff;
+      padding: 3px 10px;
+      border-radius: 9999px;
+    }
+
+    .job-company {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .task-list {
+      list-style-type: disc;
+      padding-left: 20px;
+      font-size: 0.95rem;
+      color: #334155;
+    }
+
+    .task-list li {
+      margin-bottom: 8px;
+      line-height: 1.55;
+    }
+
+    /* Skill badges */
+    .skill-badge-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+
+    .skill-badge {
+      background: #f1f5f9;
+      color: var(--primary);
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border: 1px solid #e2e8f0;
+    }
+
+    .skill-badge.highlight {
+      background: #e0f2fe;
+      color: #0369a1;
+      border-color: #bae6fd;
+    }
+
+    /* Contact details */
+    .contact-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 0;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .contact-row:last-child {
+      border-bottom: none;
+    }
+
+    .contact-row i {
+      font-size: 1.25rem;
+      color: var(--primary-light);
+      width: 24px;
+      text-align: center;
+    }
+
+    .contact-row a {
+      color: var(--text-main);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .contact-row a:hover {
+      color: var(--accent);
+      text-decoration: underline;
+    }
+
+    /* Tab Logic */
+    .tab-page {
+      display: none;
+      animation: fadeIn 0.2s ease-in-out;
+    }
+
+    .tab-page.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Footer */
+    footer {
+      background: #ffffff;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 20px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: auto;
+    }
+
+    /* Floating Contact Popup (unten rechts) */
+    .floating-contact-menu {
+      position: fixed;
+      bottom: 26px;
+      right: 26px;
+      z-index: 2000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .floating-main-trigger {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: #ffffff;
+      border: 2px solid #ffffff;
+      box-shadow: 0 4px 16px rgba(15, 39, 68, 0.35);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.35rem;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .floating-main-trigger:hover {
+      transform: scale(1.08);
+      background: #1e3a5f;
+    }
+
+    .floating-main-trigger .icon-close {
+      display: none;
+    }
+
+    .floating-contact-menu.open .floating-main-trigger {
+      background: #334155;
+    }
+
+    .floating-contact-menu.open .floating-main-trigger .icon-open {
+      display: none;
+    }
+
+    .floating-contact-menu.open .floating-main-trigger .icon-close {
+      display: inline-block;
+    }
+
+    .floating-options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(15px);
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none;
+    }
+
+    .floating-contact-menu.open .floating-options {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .floating-option-btn {
+      position: relative;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.35rem;
+      text-decoration: none;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      transition: all 0.2s ease;
+    }
+
+    .floating-option-btn.whatsapp {
+      background: #25D366;
+    }
+
+    .floating-option-btn.whatsapp:hover {
+      background: #1eb857;
+      transform: scale(1.1);
+    }
+
+    .floating-option-btn.linkedin {
+      background: #0077B5;
+    }
+
+    .floating-option-btn.linkedin:hover {
+      background: #006097;
+      transform: scale(1.1);
+    }
+
+    .floating-tooltip {
+      position: absolute;
+      right: 58px;
+      background: #0f172a;
+      color: #ffffff;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      transform: translateX(6px);
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .floating-option-btn:hover .floating-tooltip {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* =========================================
+       KINDER-PERSONA (KLEINER ROBOTER / ASSISTENT)
+       ========================================= */
+    .persona-container {
+      position: fixed;
+      bottom: 24px;
+      left: 24px;
+      z-index: 1050;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+      pointer-events: auto;
+    }
+
+    .persona-bubble {
+      background: #ffffff;
+      color: #0f2744;
+      padding: 14px 16px;
+      border-radius: 18px 18px 18px 4px;
+      box-shadow: 0 10px 30px rgba(15, 39, 68, 0.25);
+      border: 2px solid #2563eb;
+      width: 320px;
+      max-width: 90vw;
+      font-size: 0.88rem;
+      line-height: 1.45;
+      animation: popInBubble 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .persona-bubble-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #2563eb;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid #f1f5f9;
+      padding-bottom: 6px;
+    }
+
+    .persona-bubble-actions {
+      display: flex;
+      gap: 6px;
+    }
+
+    .persona-icon-btn {
+      background: #eff6ff;
+      border: none;
+      color: #2563eb;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      transition: all 0.2s;
+    }
+
+    .persona-icon-btn:hover {
+      background: #2563eb;
+      color: #fff;
+    }
+
+    .persona-chat-log {
+      max-height: 180px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding-right: 4px;
+      margin: 2px 0;
+      scroll-behavior: smooth;
+    }
+
+    .persona-msg {
+      padding: 8px 11px;
+      border-radius: 12px;
+      font-size: 0.84rem;
+      line-height: 1.4;
+      word-break: break-word;
+    }
+
+    .persona-msg-bot {
+      background: #f8fafc;
+      color: #0f2744;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px 12px 12px 2px;
+      align-self: flex-start;
+    }
+
+    .persona-msg-user {
+      background: #2563eb;
+      color: #ffffff;
+      border-radius: 12px 12px 2px 12px;
+      align-self: flex-end;
+    }
+
+    .persona-quick-chips {
+      display: flex;
+      gap: 5px;
+      flex-wrap: wrap;
+      margin: 2px 0 4px;
+    }
+
+    .persona-chip {
+      background: #f1f5f9;
+      color: #1e293b;
+      border: 1px solid #cbd5e1;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 0.72rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .persona-chip:hover {
+      background: #2563eb;
+      color: #ffffff;
+      border-color: #2563eb;
+    }
+
+    .persona-chat-input-row {
+      display: flex;
+      gap: 6px;
+      margin-top: 2px;
+    }
+
+    .persona-chat-input {
+      flex: 1;
+      border: 1px solid #cbd5e1;
+      border-radius: 20px;
+      padding: 6px 12px;
+      font-size: 0.8rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .persona-chat-input:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+    }
+
+    .persona-send-btn {
+      background: #2563eb;
+      color: #ffffff;
+      border: none;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .persona-send-btn:hover {
+      background: #1d4ed8;
+      transform: scale(1.05);
+    }
+
+    .persona-stop-btn {
+      background: #ef4444;
+      color: #ffffff;
+      border: none;
+      padding: 4px 10px;
+      border-radius: 14px;
+      font-size: 0.72rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .persona-stop-btn:hover {
+      background: #dc2626;
+      transform: translateY(-1px);
+    }
+
+    .persona-bubble-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.74rem;
+      color: #64748b;
+      padding-top: 4px;
+      border-top: 1px solid #f1f5f9;
+    }
+      font-size: 0.78rem;
+    }
+
+    .persona-speak-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: #2563eb;
+      color: #ffffff;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 0.76rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .persona-speak-btn:hover {
+      background: #1d4ed8;
+      transform: scale(1.03);
+    }
+
+    .persona-avatar-wrapper {
+      position: relative;
+      cursor: pointer;
+      filter: drop-shadow(0 8px 18px rgba(15, 39, 68, 0.3));
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .persona-avatar-wrapper:hover {
+      transform: translateY(-4px) scale(1.05);
+    }
+
+    .persona-avatar-svg {
+      width: 76px;
+      height: 76px;
+      display: block;
+    }
+
+    .persona-pulse-dot {
+      position: absolute;
+      top: 2px;
+      right: 2px;
+      width: 14px;
+      height: 14px;
+      background: #10b981;
+      border: 2px solid #ffffff;
+      border-radius: 50%;
+      animation: pulseGreen 2s infinite;
+    }
+
+    @keyframes popInBubble {
+      0% {
+        opacity: 0;
+        transform: translateY(12px) scale(0.92);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes pulseGreen {
+      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+      70% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+
+    @keyframes waveHand {
+      0%, 100% { transform: rotate(0deg); transform-origin: 20px 45px; }
+      25% { transform: rotate(18deg); transform-origin: 20px 45px; }
+      75% { transform: rotate(-12deg); transform-origin: 20px 45px; }
+    }
+
+    .wave-arm {
+      animation: waveHand 2.2s infinite ease-in-out;
+    }
+
+    /* ==========================================================================
+       RESPONSIVE DESIGN (TABLETS, SMARTPHONES & KLEINE DISPLAYS)
+       ========================================================================== */
+    @media (max-width: 992px) {
+      .container {
+        padding: 0 1.25rem;
+      }
+      .nav-container {
+        flex-wrap: wrap;
+        gap: 0.75rem;
+      }
+      .hero {
+        padding: 2.5rem 0;
+      }
+      .hero h1 {
+        font-size: 2.1rem;
+      }
+      .grid-3 {
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 1rem;
+      }
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+    }
+
+    @media (max-width: 640px) {
+      body {
+        font-size: 0.92rem;
+      }
+
+      /* Navbar & Touch-freundliche Tab-Leiste */
+      .navbar {
+        padding: 0.625rem 0;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+      .nav-container {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.625rem;
+      }
+      .nav-brand {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+      }
+      nav {
+        width: 100%;
+        overflow: hidden;
+      }
+      .nav-menu {
+        display: flex;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding: 4px 2px 8px;
+        scrollbar-width: none;
+        gap: 6px;
+        width: 100%;
+        margin: 0;
+      }
+      .nav-menu::-webkit-scrollbar {
+        display: none;
+      }
+      .nav-item {
+        flex: 0 0 auto;
+      }
+      .nav-item button {
+        padding: 8px 14px;
+        font-size: 0.85rem;
+        white-space: nowrap;
+        border-radius: 8px;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: #f1f5f9;
+        color: #334155;
+      }
+      .nav-item button.active {
+        background: var(--primary);
+        color: #ffffff;
+      }
+      .lang-dropdown-wrapper {
+        align-self: flex-end;
+      }
+
+      /* Hero Section */
+      .hero {
+        padding: 1.875rem 0 2.2rem;
+        text-align: left;
+      }
+      .hero h1 {
+        font-size: 1.75rem;
+        line-height: 1.25;
+      }
+      .hero .subtitle {
+        font-size: 0.98rem;
+      }
+      .hero-cta {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.625rem;
+      }
+      .hero-cta .btn {
+        width: 100%;
+        justify-content: center;
+      }
+
+      /* Karten, Grids & Timeline */
+      .card {
+        padding: 1.125rem 1rem;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+      }
+      .grid-3 {
+        grid-template-columns: 1fr;
+        gap: 0.875rem;
+      }
+      .stat-card {
+        padding: 1rem;
+      }
+      .timeline-item {
+        padding-left: 1.25rem;
+        margin-bottom: 1.375rem;
+      }
+      .timeline-item::before {
+        left: 4px;
+      }
+      .timeline-dot {
+        left: 0;
+        width: 10px;
+        height: 10px;
+      }
+      .timeline-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.25rem;
+      }
+      .timeline-badge {
+        align-self: flex-start;
+      }
+
+      /* Formulare: 16px Font verhindert automatisches iOS-Safari Zooming */
+      .form-group input,
+      .form-group textarea {
+        font-size: 1rem !important;
+        padding: 0.625rem 0.75rem;
+      }
+      .contact-card {
+        padding: 1.125rem 1rem;
+      }
+
+      /* Floating WhatsApp / LinkedIn Button */
+      .floating-contact-menu {
+        bottom: 1rem;
+        right: 0.875rem;
+      }
+      .floating-contact-btn {
+        width: 48px;
+        height: 48px;
+        font-size: 1.25rem;
+      }
+      .floating-contact-popup {
+        width: calc(100vw - 2rem);
+        max-width: 290px;
+        right: 0;
+        bottom: 3.75rem;
+      }
+
+      /* KI-Persona Roboter & Chat-Bubble mobilfreundlich */
+      .persona-container {
+        bottom: 1rem;
+        left: 0.75rem;
+        z-index: 1050;
+      }
+      .persona-bubble {
+        width: calc(100vw - 2rem);
+        max-width: 320px;
+        font-size: 0.84rem;
+        padding: 0.75rem;
+        bottom: 4.5rem;
+      }
+      .persona-chat-log {
+        max-height: 130px;
+      }
+      .persona-avatar-wrapper {
+        width: 58px;
+        height: 58px;
+      }
+      .persona-avatar-svg {
+        width: 56px;
+        height: 56px;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .hero h1 {
+        font-size: 1.45rem;
+      }
+      .nav-tab {
+        padding: 0.45rem 0.7rem;
+        font-size: 0.8rem;
+      }
+      .persona-bubble {
+        width: calc(100vw - 1.25rem);
+      }
+    }
+
+    /* Print & PDF Export Styling */
+    .print-only {
+      display: none;
+    }
+
+    @media print {
+      body {
+        background: #ffffff !important;
+        padding: 0 !important;
+        color: #000000 !important;
+      }
+
+      .navbar, footer, .hero-cta, .btn, .nav-container, .print-btn-bar, .floating-contact-menu {
+        display: none !important;
+      }
+
+      .main-wrapper {
+        padding: 0 !important;
+        max-width: 100% !important;
+      }
+
+      /* Alle Tabs für den PDF-Druck sichtbar machen */
+      .tab-page {
+        display: block !important;
+        animation: none !important;
+        page-break-inside: avoid;
+      }
+
+      .hero-banner {
+        background: #0f2744 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        color: #ffffff !important;
+        padding: 24px !important;
+        margin-bottom: 20px !important;
+      }
+
+      .card {
+        box-shadow: none !important;
+        border: 1px solid #cbd5e1 !important;
+        padding: 20px !important;
+        margin-bottom: 16px !important;
+        page-break-inside: avoid;
+      }
+
+      .print-only {
+        display: block !important;
+        margin-top: 16px;
+        padding-top: 12px;
+        border-top: 1px dashed #cbd5e1;
+        font-size: 0.85rem;
+        color: #1e3a8a;
+      }
+
+      .print-only a {
+        color: #1e3a8a;
+        font-weight: 600;
+        text-decoration: underline;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <div class="nav-brand" onclick="switchTab('home')">
+        <i class="fa-solid fa-cube"></i>
+        <span>Engjell Dervishi</span>
+        <span class="nav-brand-badge" data-i18n="badge_consultant">SAP Consultant</span>
+      </div>
+
+      <nav>
+        <ul class="nav-menu">
+          <li class="nav-item">
+            <button id="nav-home" class="active" onclick="switchTab('home')">
+              <i class="fa-solid fa-house"></i> <span data-i18n="nav_home">Home</span>
+            </button>
+          </li>
+          <li class="nav-item">
+            <button id="nav-experience" onclick="switchTab('experience')">
+              <i class="fa-solid fa-briefcase"></i> <span data-i18n="nav_experience">Berufserfahrung</span>
+            </button>
+          </li>
+          <li class="nav-item">
+            <button id="nav-skills" onclick="switchTab('skills')">
+              <i class="fa-solid fa-gears"></i> <span data-i18n="nav_skills">Fähigkeiten & Bildung</span>
+            </button>
+          </li>
+          <li class="nav-item">
+            <button id="nav-contact" onclick="switchTab('contact')">
+              <i class="fa-solid fa-address-card"></i> <span data-i18n="nav_contact">Kontakt</span>
+            </button>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Sprachauswahl Dropdown mit Flaggen -->
+      <div class="lang-dropdown-wrapper" id="langDropdownWrapper">
+        <button class="lang-trigger-btn" id="langTriggerBtn" type="button" onclick="toggleLangMenu(event)" aria-haspopup="true" aria-expanded="false" title="Sprache wählen">
+          <svg class="flag-icon" viewBox="0 0 5 3" aria-hidden="true"><rect width="5" height="1" y="0" fill="#000"/><rect width="5" height="1" y="1" fill="#D00"/><rect width="5" height="1" y="2" fill="#FFCE00"/></svg>
+          <span id="currentLangLabel">DE</span>
+          <i class="fa-solid fa-chevron-down" style="font-size: 0.7rem; color: #64748b; margin-left: 2px;"></i>
+        </button>
+
+        <div class="lang-menu-dropdown" id="langMenuDropdown" role="menu">
+          <button class="lang-option active" type="button" data-lang="de" onclick="selectLanguage('de')" role="menuitem">
+            <svg class="flag-icon" viewBox="0 0 5 3" aria-hidden="true"><rect width="5" height="1" y="0" fill="#000"/><rect width="5" height="1" y="1" fill="#D00"/><rect width="5" height="1" y="2" fill="#FFCE00"/></svg>
+            <span>Deutsch (DE)</span>
+          </button>
+          <button class="lang-option" type="button" data-lang="en" onclick="selectLanguage('en')" role="menuitem">
+            <svg class="flag-icon" viewBox="0 0 60 30" aria-hidden="true"><clipPath id="s"><path d="M0,0 v30 h60 v-30 z"/></clipPath><clipPath id="t"><path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z"/></clipPath><g clip-path="url(#s)"><path d="M0,0 v30 h60 v-30 z" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" clip-path="url(#t)" stroke="#C8102E" stroke-width="4"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/></g></svg>
+            <span>English (EN)</span>
+          </button>
+          <button class="lang-option" type="button" data-lang="sq" onclick="selectLanguage('sq')" role="menuitem">
+            <svg class="flag-icon" viewBox="0 0 7 5" aria-hidden="true"><rect width="7" height="5" fill="#DA291C"/><g fill="#000" transform="translate(3.5, 2.5) scale(0.35)"><path d="M0,-3 L0.8,-1.5 L2.5,-2 L1.8,-0.5 L3,0.5 L1.3,0.6 L1.7,2.2 L0.4,1.3 L0,3 L-0.4,1.3 L-1.7,2.2 L-1.3,0.6 L-3,0.5 L-1.8,-0.5 L-2.5,-2 L-0.8,-1.5 Z"/></g></svg>
+            <span>Shqip (SQ)</span>
+          </button>
+          <button class="lang-option" type="button" data-lang="it" onclick="selectLanguage('it')" role="menuitem">
+            <svg class="flag-icon" viewBox="0 0 3 2" aria-hidden="true"><rect width="1" height="2" x="0" fill="#009246"/><rect width="1" height="2" x="1" fill="#fff"/><rect width="1" height="2" x="2" fill="#ce2b37"/></svg>
+            <span>Italiano (IT)</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-wrapper">
+
+    <!-- TAB 1: HOME / ÜBERBLICK -->
+    <section id="tab-home" class="tab-page active">
+      <div class="hero-banner">
+        <div class="hero-content">
+          <h1 class="hero-title">Engjell Dervishi</h1>
+          <div class="hero-subtitle" data-i18n="hero_subtitle">SAP FI / CO / MM Berater</div>
+          <p class="hero-text" data-i18n="hero_text">
+            Erfahrener SAP-Berater mit fundierter Expertise in den Kernmodulen FI, CO und MM sowie mehrjähriger Praxis in der Analyse, Harmonisierung und kontinuierlichen Optimierung komplexer Geschäftsprozesse. Versiert im Customizing, in der technischen Betreuung und Fehleranalyse sowie in der Konzeption und Implementierung zukunftssicherer SAP-Lösungen.
+          </p>
+          <div class="hero-cta">
+            <button class="btn btn-light" onclick="switchTab('experience')">
+              <i class="fa-solid fa-briefcase"></i> <span data-i18n="hero_btn_exp">Berufserfahrung ansehen</span>
+            </button>
+            <button class="btn btn-outline-light" onclick="switchTab('contact')">
+              <i class="fa-solid fa-envelope"></i> <span data-i18n="hero_btn_contact">Kontakt aufnehmen</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-3" style="margin-bottom: 24px;">
+        <div class="stat-card">
+          <div class="stat-icon"><i class="fa-solid fa-cubes"></i></div>
+          <div class="stat-title" data-i18n="stat_title_1">SAP Core Modules</div>
+          <div class="stat-desc" data-i18n="stat_desc_1">Spezialisierung auf Finanzwesen (FI), Controlling (CO), Materialwirtschaft (MM) sowie Customizing.</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon"><i class="fa-solid fa-code"></i></div>
+          <div class="stat-title" data-i18n="stat_title_2">Technisches Know-how</div>
+          <div class="stat-desc" data-i18n="stat_desc_2">ABAP-Entwicklung, SAP ILM Datenarchivierung und fundierte Kenntnisse moderner IT-Infrastrukturen.</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+          <div class="stat-title" data-i18n="stat_title_3">Akademischer Hintergrund</div>
+          <div class="stat-desc" data-i18n="stat_desc_3">Erfolgreich abgeschlossenes Bachelor- & Masterstudium in Mathematik und Informatik.</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="section-title"><i class="fa-solid fa-bullseye"></i> <span data-i18n="home_current_title">Aktuelle Position</span></h2>
+        <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px;">
+          <div>
+            <h3 style="font-size: 1.15rem; font-weight: 700;" data-i18n="exp_role_1">SAP Inhouse Berater (FI / CO / MM)</h3>
+            <p style="color: var(--text-muted); font-weight: 500;">Schwarz Digits | Neckarsulm</p>
+          </div>
+          <span style="background: #eff6ff; color: var(--primary-light); padding: 4px 12px; border-radius: 9999px; font-size: 0.85rem; font-weight: 600;" data-i18n="exp_period_1">Okt. 2022 – Heute</span>
+        </div>
+        <p style="margin-top: 12px; color: var(--text-muted); font-size: 0.95rem;" data-i18n="home_current_desc">
+          Verantwortlich für die Optimierung bereichsübergreifender Finanz- und Materialflussprozesse, maßgeschneidertes Modul-Customizing sowie die Durchführung von Key-User- und Endanwenderschulungen.
+        </p>
+      </div>
+    </section>
+
+    <!-- TAB 2: BERUFSERFAHRUNG -->
+    <section id="tab-experience" class="tab-page">
+      <div class="card">
+        <h2 class="section-title"><i class="fa-solid fa-briefcase"></i> <span data-i18n="exp_section_title">Beruflicher Werdegang</span></h2>
+
+        <!-- Job 1 -->
+        <div class="timeline-item">
+          <div class="timeline-header">
+            <span class="job-role" data-i18n="exp_role_1">SAP Inhouse Berater (FI / CO / MM)</span>
+            <span class="job-period" data-i18n="exp_period_1">Okt. 2022 – Heute</span>
+          </div>
+          <div class="job-company"><i class="fa-solid fa-building"></i> Schwarz Digits | Neckarsulm</div>
+          <ul class="task-list">
+            <li data-i18n="exp_1_t1">Analyse, Modellierung und kontinuierliche Optimierung bereichsübergreifender Geschäftsprozesse im Finanzwesen (FI), Controlling (CO) und in der Materialwirtschaft (MM).</li>
+            <li data-i18n="exp_1_t2">Bedarfsgerechtes Customizing und funktionale Weiterentwicklung der SAP-Systemlandschaft gemäß unternehmensspezifischen Anforderungen.</li>
+            <li data-i18n="exp_1_t3">Planung und Durchführung praxisorientierter Schulungen für Key-User und Endanwender sowie kontinuierlicher Second- und Third-Level-Support.</li>
+            <li data-i18n="exp_1_t4">Strukturierte Fehleranalyse (Incident- & Problem-Management) sowie Sicherstellung eines stabilen und performanten Systembetriebs.</li>
+            <li data-i18n="exp_1_t5">Mitwirkung bei Release-Wechseln, Einspielen von Support-Packages sowie fachliche Begleitung von Systemerweiterungen.</li>
+            <li data-i18n="exp_1_t6">Enge Schnittstellenkommunikation und partnerschaftliche Zusammenarbeit mit den Fachbereichen zur Definition und Umsetzung von Change Requests.</li>
+          </ul>
+        </div>
+
+        <!-- Job 2 -->
+        <div class="timeline-item">
+          <div class="timeline-header">
+            <span class="job-role" data-i18n="exp_role_2">IT-Systemtechniker</span>
+            <span class="job-period" data-i18n="exp_period_2">Apr. 2021 – Sept. 2022</span>
+          </div>
+          <div class="job-company"><i class="fa-solid fa-building"></i> Bechtle AG | Neckarsulm</div>
+          <ul class="task-list">
+            <li data-i18n="exp_2_t1">Fachgerechte Installation, Konfiguration, Administration und Wartung moderner IT-Infrastrukturen, Serverlandschaften und Netzwerkkomponenten.</li>
+            <li data-i18n="exp_2_t2">Systematische Störungsdiagnose und nachhaltige Fehlerbehebung im Hard- und Softwarebereich im Rahmen des Vor-Ort- und Remote-Supports.</li>
+            <li data-i18n="exp_2_t3">Planung und Durchführung von Betriebssystem- und Software-Upgrades sowie Implementierung robuster Sicherheits- und Backup-Konzepte.</li>
+          </ul>
+        </div>
+
+        <!-- Job 3 -->
+        <div class="timeline-item">
+          <div class="timeline-header">
+            <span class="job-role" data-i18n="exp_role_3">SAP ILM Consultant / Fachinformatiker</span>
+            <span class="job-period" data-i18n="exp_period_3">Jan. 2020 – März 2021</span>
+          </div>
+          <div class="job-company"><i class="fa-solid fa-building"></i> Consolvis GmbH | Speyer</div>
+          <ul class="task-list">
+            <li data-i18n="exp_3_t1">Entwicklung und Anpassung kundenindividueller Funktionalitäten und Schnittstellen mittels ABAP.</li>
+            <li data-i18n="exp_3_t2">Konzeptionelle und technische Implementierung von Lösungen im Bereich SAP Information Lifecycle Management (ILM) und Datenarchivierung.</li>
+            <li data-i18n="exp_3_t3">Aktive Mitarbeit an Projektphasen von der Anforderungsaufnahme bis zur erfolgreichen produktiven Inbetriebnahme.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: FÄHIGKEITEN & BILDUNG -->
+    <section id="tab-skills" class="tab-page">
+      <div class="grid-2">
+        <div class="card">
+          <h2 class="section-title"><i class="fa-solid fa-gears"></i> <span data-i18n="skills_tech_title">Fachliche Kompetenzen</span></h2>
+          <div class="skill-badge-group">
+            <span class="skill-badge highlight">SAP FI (Finanzwesen)</span>
+            <span class="skill-badge highlight">SAP CO (Controlling)</span>
+            <span class="skill-badge highlight">SAP MM (Materialwirtschaft)</span>
+            <span class="skill-badge highlight">SAP Customizing</span>
+            <span class="skill-badge">SAP ABAP</span>
+            <span class="skill-badge">SAP ILM</span>
+            <span class="skill-badge" data-i18n="skill_badge_1">Prozessanalyse & -optimierung</span>
+            <span class="skill-badge" data-i18n="skill_badge_2">Fehleranalyse & Support</span>
+            <span class="skill-badge" data-i18n="skill_badge_3">IT-Infrastruktur & Netzwerke</span>
+            <span class="skill-badge" data-i18n="skill_badge_4">Systemadministration</span>
+          </div>
+
+          <h2 class="section-title" style="margin-top: 32px;"><i class="fa-solid fa-brain"></i> <span data-i18n="skills_method_title">Arbeitsweise & Methoden</span></h2>
+          <div class="skill-badge-group">
+            <span class="skill-badge" data-i18n="method_1">Lösungsorientiertes Handeln</span>
+            <span class="skill-badge" data-i18n="method_2">Strukturiertes Vorgehen</span>
+            <span class="skill-badge" data-i18n="method_3">Effizientes Zeitmanagement</span>
+            <span class="skill-badge" data-i18n="method_4">Anwenderorientierte Schulungen</span>
+          </div>
+        </div>
+
+        <div class="space-y-6">
+          <div class="card">
+            <h2 class="section-title"><i class="fa-solid fa-graduation-cap"></i> <span data-i18n="edu_title">Akademische Ausbildung</span></h2>
+            <div style="margin-bottom: 8px;">
+              <h3 style="font-size: 1.1rem; font-weight: 700;" data-i18n="edu_degree">Bachelor & Master in Mathematik & Informatik</h3>
+              <p style="color: var(--primary-light); font-weight: 600; font-size: 0.9rem;">Alexander Xhuvani Universität</p>
+              <p style="color: var(--text-muted); font-size: 0.85rem;" data-i18n="edu_period">Sept. 2012 – Jan. 2018</p>
+            </div>
+            <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 10px;">
+              <strong data-i18n="edu_focus_label">Vertiefungsschwerpunkte:</strong> <span data-i18n="edu_focus_val">Höhere Mathematik, Physik, IT-Verwaltung & Systemarchitekturen.</span>
+            </p>
+          </div>
+
+          <div class="card" style="margin-top: 24px;">
+            <h2 class="section-title"><i class="fa-solid fa-language"></i> <span data-i18n="lang_section_title">Sprachkenntnisse</span></h2>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+              <div style="background: #f8fafc; padding: 10px; border-radius: 8px; border: 1px solid var(--border);">
+                <div style="font-weight: 700;" data-i18n="lang_name_de">Deutsch</div>
+                <div style="font-size: 0.85rem; color: var(--text-muted);" data-i18n="lang_level_de">Fließend in Wort & Schrift</div>
+              </div>
+              <div style="background: #f8fafc; padding: 10px; border-radius: 8px; border: 1px solid var(--border);">
+                <div style="font-weight: 700;" data-i18n="lang_name_en">Englisch</div>
+                <div style="font-size: 0.85rem; color: var(--text-muted);" data-i18n="lang_level_en">Fließend / Verhandlungssicher</div>
+              </div>
+              <div style="background: #f8fafc; padding: 10px; border-radius: 8px; border: 1px solid var(--border);">
+                <div style="font-weight: 700;" data-i18n="lang_name_sq">Albanisch</div>
+                <div style="font-size: 0.85rem; color: var(--text-muted);" data-i18n="lang_level_sq">Muttersprache</div>
+              </div>
+              <div style="background: #f8fafc; padding: 10px; border-radius: 8px; border: 1px solid var(--border);">
+                <div style="font-weight: 700;" data-i18n="lang_name_it">Italienisch</div>
+                <div style="font-size: 0.85rem; color: var(--text-muted);" data-i18n="lang_level_it">Gute Kenntnisse</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 4: KONTAKT & PERSÖNLICHES -->
+    <section id="tab-contact" class="tab-page">
+      <div class="print-btn-bar" style="display: flex; justify-content: flex-end; margin-bottom: 16px;">
+        <button class="btn btn-primary" onclick="exportFullPDF()">
+          <i class="fa-solid fa-file-pdf"></i> <span data-i18n="btn_pdf_export">Als PDF herunterladen / drucken</span>
+        </button>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h2 class="section-title"><i class="fa-solid fa-paper-plane"></i> <span data-i18n="contact_direct_title">Direkter Kontakt</span></h2>
+          <p style="color: var(--text-muted); margin-bottom: 20px;" data-i18n="contact_direct_desc">
+            Für berufliche Anfragen oder Vernetzung stehe ich gerne telefonisch oder per E-Mail zur Verfügung.
+          </p>
+
+          <div class="contact-row">
+            <i class="fa-solid fa-envelope"></i>
+            <div>
+              <div style="font-size: 0.8rem; color: var(--text-muted);" data-i18n="contact_label_email">E-Mail Adresse</div>
+              <a href="mailto:engjell.dervishi11@gmail.com">engjell.dervishi11@gmail.com</a>
+            </div>
+          </div>
+
+          <div class="contact-row">
+            <i class="fa-solid fa-phone"></i>
+            <div>
+              <div style="font-size: 0.8rem; color: var(--text-muted);" data-i18n="contact_label_phone">Telefon</div>
+              <a href="tel:017620933153">0176 20933153</a>
+            </div>
+          </div>
+
+          <div class="contact-row">
+            <i class="fa-solid fa-location-dot"></i>
+            <div>
+              <div style="font-size: 0.8rem; color: var(--text-muted);" data-i18n="contact_label_location">Standort</div>
+              <span>Sinsheimer Str. 5, 74080 Heilbronn</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2 class="section-title"><i class="fa-solid fa-id-card"></i> <span data-i18n="personal_info_title">Persönliche Informationen</span></h2>
+          <div style="display: flex; flex-direction: column; gap: 14px; font-size: 0.95rem;">
+            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #f1f5f9; padding-bottom: 8px;">
+              <span style="color: var(--text-muted);" data-i18n="pi_label_dob">Geburtsdatum:</span>
+              <span style="font-weight: 600;">11.07.1994</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #f1f5f9; padding-bottom: 8px;">
+              <span style="color: var(--text-muted);" data-i18n="pi_label_status">Familienstand:</span>
+              <span style="font-weight: 600;" data-i18n="pi_val_status">Ledig</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #f1f5f9; padding-bottom: 8px;">
+              <span style="color: var(--text-muted);" data-i18n="pi_label_citizenship">Staatsangehörigkeit:</span>
+              <span style="font-weight: 600;" data-i18n="pi_val_citizenship">Deutsch</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #f1f5f9; padding-bottom: 8px;">
+              <span style="color: var(--text-muted);" data-i18n="pi_label_license">Führerschein:</span>
+              <span style="font-weight: 600;" data-i18n="pi_val_license">Klasse B</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; padding-top: 4px;">
+              <span style="color: var(--text-muted);" data-i18n="pi_label_hobbies">Interessen & Ausgleich:</span>
+              <span style="font-weight: 600; text-align: right;" data-i18n="pi_val_hobbies">Fitness & Kraftsport, interkultureller Austausch, Reisen</span>
+            </div>
+          </div>
+
+          <div style="margin-top: 28px;">
+            <button class="btn btn-primary" style="width: 100%; justify-content: center;" onclick="exportFullPDF()">
+              <i class="fa-solid fa-file-pdf"></i> <span data-i18n="btn_pdf_full">Gesamt-Lebenslauf als PDF herunterladen</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fußzeile im PDF mit Website-Link -->
+      <div class="print-only">
+        <p><strong>🌐 Online-Lebenslauf & interaktive Website:</strong> <a href="#" id="pdfWebLink">Hier online öffnen</a></p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Floating Contact Pop-up (WhatsApp & LinkedIn) unten rechts -->
+  <div class="floating-contact-menu" id="floatingContactMenu">
+    <div class="floating-options" id="floatingOptions">
+      <a href="https://wa.me/4917620933153" target="_blank" rel="noopener noreferrer" class="floating-option-btn whatsapp" title="Direkt per WhatsApp schreiben">
+        <i class="fa-brands fa-whatsapp"></i>
+        <span class="floating-tooltip">WhatsApp Chat</span>
+      </a>
+      <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" class="floating-option-btn linkedin" title="Auf LinkedIn vernetzen">
+        <i class="fa-brands fa-linkedin-in"></i>
+        <span class="floating-tooltip">LinkedIn Profil</span>
+      </a>
+    </div>
+    <button class="floating-main-trigger" id="floatingMainTrigger" onclick="toggleFloatingMenu()" aria-label="Kontaktmöglichkeiten öffnen" title="Schnellkontakt">
+      <i class="fa-solid fa-comments icon-open"></i>
+      <i class="fa-solid fa-xmark icon-close"></i>
+    </button>
+  </div>
+
+  <!-- Kinder-Persona (KI-Assistent "Blaui / Robo-Guide") auf der Hauptseite -->
+  <div class="persona-container" id="personaAssistant">
+    <div class="persona-bubble" id="personaBubble">
+      <div class="persona-bubble-header">
+        <span><i class="fa-solid fa-robot"></i> <span data-i18n="persona_badge">KI-Assistent & Chat</span></span>
+        <div class="persona-bubble-actions">
+          <button class="persona-icon-btn" onclick="togglePersonaVoice()" id="personaVoiceToggle" title="Sprachausgabe an/aus" aria-label="Sprachausgabe umschalten">
+            <i class="fa-solid fa-volume-high" id="personaVoiceIcon"></i>
+          </button>
+          <button class="persona-icon-btn" onclick="minimizePersonaBubble()" title="Schließen" aria-label="Nachricht schließen">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+      </div>
+      <div class="persona-chat-log" id="personaChatLog">
+        <div class="persona-msg persona-msg-bot" id="personaSpeechText">
+          Herzlich willkommen! Vielen Dank für Ihr Interesse an Engjells interaktivem Lebenslauf. Ich bin sein digitaler Begleiter – fragen Sie mich gerne etwas über Engjells Erfahrung, SAP-Module, Sprachen oder Projekte!
+        </div>
+      </div>
+      <div class="persona-quick-chips">
+        <button type="button" class="persona-chip" onclick="askPersonaQuick('SAP Module')">SAP Module</button>
+        <button type="button" class="persona-chip" onclick="askPersonaQuick('Berufserfahrung')">Erfahrung</button>
+        <button type="button" class="persona-chip" onclick="askPersonaQuick('Sprachen')">Sprachen</button>
+        <button type="button" class="persona-chip" onclick="askPersonaQuick('Kontakt')">Kontakt</button>
+      </div>
+      <form class="persona-chat-input-row" onsubmit="handlePersonaChatSubmit(event)">
+        <input type="text" id="personaChatInput" class="persona-chat-input" placeholder="Frage zu Engjells CV stellen..." autocomplete="off">
+        <button type="submit" class="persona-send-btn" title="Nachricht senden" aria-label="Frage senden">
+          <i class="fa-solid fa-paper-plane"></i>
+        </button>
+      </form>
+      <div class="persona-bubble-footer">
+        <div style="display: inline-flex; gap: 6px; align-items: center;">
+          <button class="persona-speak-btn" id="personaPlayBtn" onclick="speakPersonaLastMsg()">
+            <i class="fa-solid fa-play"></i> <span data-i18n="persona_btn_listen">Vorlesen</span>
+          </button>
+          <button class="persona-stop-btn" id="personaStopBtn" onclick="stopSpeaking()" style="display: none;">
+            <i class="fa-solid fa-stop"></i> <span data-i18n="persona_btn_stop">Stop</span>
+          </button>
+        </div>
+        <span style="color: #64748b; font-size: 0.72rem;" data-i18n="persona_role">Engjells digitaler Guide</span>
+      </div>
+    </div>
+
+    <!-- Interaktiver freundlicher Kinder-Roboter-Avatar (passend zum blau-weißen Design) -->
+    <div class="persona-avatar-wrapper" onclick="handlePersonaAvatarClick()" title="Klick mich für eine Begrüßung!" aria-label="KI-Persona ansprechen">
+      <div class="persona-pulse-dot" title="Aktiv"></div>
+      <svg class="persona-avatar-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Antenne -->
+        <line x1="50" y1="18" x2="50" y2="6" stroke="#2563eb" stroke-width="4" stroke-linecap="round"/>
+        <circle cx="50" cy="5" r="5" fill="#f59e0b"/>
+        
+        <!-- Ohren / Kopfhörer -->
+        <rect x="14" y="36" width="8" height="18" rx="4" fill="#1e3a5f"/>
+        <rect x="78" y="36" width="8" height="18" rx="4" fill="#1e3a5f"/>
+        
+        <!-- Kopf (Kinder-Roboter) -->
+        <rect x="20" y="18" width="60" height="52" rx="20" fill="#ffffff" stroke="#0f2744" stroke-width="3"/>
+        
+        <!-- Bildschirm/Visier -->
+        <rect x="27" y="27" width="46" height="30" rx="12" fill="#0f2744"/>
+        
+        <!-- Große freundliche Kinder-Augen mit Glanzlicht -->
+        <circle cx="39" cy="40" r="7" fill="#38bdf8"/>
+        <circle cx="41" cy="38" r="2.5" fill="#ffffff"/>
+        
+        <circle cx="61" cy="40" r="7" fill="#38bdf8"/>
+        <circle cx="63" cy="38" r="2.5" fill="#ffffff"/>
+        
+        <!-- Fröhliches Lächeln -->
+        <path d="M42 49 Q50 56 58 49" stroke="#38bdf8" stroke-width="3" stroke-linecap="round" fill="none"/>
+        
+        <!-- Wangenröte -->
+        <ellipse cx="32" cy="47" rx="3.5" ry="2" fill="#f43f5e" opacity="0.6"/>
+        <ellipse cx="68" cy="47" rx="3.5" ry="2" fill="#f43f5e" opacity="0.6"/>
+        
+        <!-- Körper -->
+        <rect x="31" y="71" width="38" height="23" rx="10" fill="#2563eb"/>
+        <!-- Herz / Blaues Feld Emblem -->
+        <circle cx="50" cy="80" r="5" fill="#ffffff"/>
+        <path d="M50 78 L52 82 L48 82 Z" fill="#2563eb"/>
+        
+        <!-- Winkender Arm links -->
+        <g class="wave-arm">
+          <rect x="13" y="70" width="16" height="7" rx="3.5" fill="#1e3a5f"/>
+          <circle cx="13" cy="73.5" r="5" fill="#f59e0b"/>
+        </g>
+        <!-- Rechter Arm -->
+        <rect x="71" y="74" width="16" height="7" rx="3.5" fill="#1e3a5f"/>
+      </svg>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2026 Engjell Dervishi · <span data-i18n="footer_title">SAP FI/CO/MM Berater</span></p>
+  </footer>
+
+  <script>
+    const translations = {
+      de: {
+        badge_consultant: "SAP Consultant",
+        nav_home: "Home",
+        nav_experience: "Berufserfahrung",
+        nav_skills: "Fähigkeiten & Bildung",
+        nav_contact: "Kontakt",
+        hero_subtitle: "SAP FI / CO / MM Berater",
+        hero_text: "Erfahrener SAP-Berater mit fundierter Expertise in den Kernmodulen FI, CO und MM sowie mehrjähriger Praxis in der Analyse, Harmonisierung und kontinuierlichen Optimierung komplexer Geschäftsprozesse. Versiert im Customizing, in der technischen Betreuung und Fehleranalyse sowie in der Konzeption und Implementierung zukunftssicherer SAP-Lösungen.",
+        hero_btn_exp: "Berufserfahrung ansehen",
+        hero_btn_contact: "Kontakt aufnehmen",
+        stat_title_1: "SAP Core Modules",
+        stat_desc_1: "Spezialisierung auf Finanzwesen (FI), Controlling (CO), Materialwirtschaft (MM) sowie Customizing.",
+        stat_title_2: "Technisches Know-how",
+        stat_desc_2: "ABAP-Entwicklung, SAP ILM Datenarchivierung und fundierte Kenntnisse moderner IT-Infrastrukturen.",
+        stat_title_3: "Akademischer Hintergrund",
+        stat_desc_3: "Erfolgreich abgeschlossenes Bachelor- & Masterstudium in Mathematik und Informatik.",
+        home_current_title: "Aktuelle Position",
+        home_current_desc: "Verantwortlich für die Optimierung bereichsübergreifender Finanz- und Materialflussprozesse, maßgeschneidertes Modul-Customizing sowie die Durchführung von Key-User- und Endanwenderschulungen.",
+        exp_section_title: "Beruflicher Werdegang",
+        exp_role_1: "SAP Inhouse Berater (FI / CO / MM)",
+        exp_period_1: "Okt. 2022 – Heute",
+        exp_1_t1: "Analyse, Modellierung und kontinuierliche Optimierung bereichsübergreifender Geschäftsprozesse im Finanzwesen (FI), Controlling (CO) und in der Materialwirtschaft (MM).",
+        exp_1_t2: "Bedarfsgerechtes Customizing und funktionale Weiterentwicklung der SAP-Systemlandschaft gemäß unternehmensspezifischen Anforderungen.",
+        exp_1_t3: "Planung und Durchführung praxisorientierter Schulungen für Key-User und Endanwender sowie kontinuierlicher Second- und Third-Level-Support.",
+        exp_1_t4: "Strukturierte Fehleranalyse (Incident- & Problem-Management) sowie Sicherstellung eines stabilen und performanten Systembetriebs.",
+        exp_1_t5: "Mitwirkung bei Release-Wechseln, Einspielen von Support-Packages sowie fachliche Begleitung von Systemerweiterungen.",
+        exp_1_t6: "Enge Schnittstellenkommunikation und partnerschaftliche Zusammenarbeit mit den Fachbereichen zur Definition und Umsetzung von Change Requests.",
+        exp_role_2: "IT-Systemtechniker",
+        exp_period_2: "Apr. 2021 – Sept. 2022",
+        exp_2_t1: "Fachgerechte Installation, Konfiguration, Administration und Wartung moderner IT-Infrastrukturen, Serverlandschaften und Netzwerkkomponenten.",
+        exp_2_t2: "Systematische Störungsdiagnose und nachhaltige Fehlerbehebung im Hard- und Softwarebereich im Rahmen des Vor-Ort- und Remote-Supports.",
+        exp_2_t3: "Planung und Durchführung von Betriebssystem- und Software-Upgrades sowie Implementierung robuster Sicherheits- und Backup-Konzepte.",
+        exp_role_3: "SAP ILM Consultant / Fachinformatiker",
+        exp_period_3: "Jan. 2020 – März 2021",
+        exp_3_t1: "Entwicklung und Anpassung kundenindividueller Funktionalitäten und Schnittstellen mittels ABAP.",
+        exp_3_t2: "Konzeptionelle und technische Implementierung von Lösungen im Bereich SAP Information Lifecycle Management (ILM) und Datenarchivierung.",
+        exp_3_t3: "Aktive Mitarbeit an Projektphasen von der Anforderungsaufnahme bis zur erfolgreichen produktiven Inbetriebnahme.",
+        skills_tech_title: "Fachliche Kompetenzen",
+        skill_badge_1: "Prozessanalyse & -optimierung",
+        skill_badge_2: "Fehleranalyse & Support",
+        skill_badge_3: "IT-Infrastruktur & Netzwerke",
+        skill_badge_4: "Systemadministration",
+        skills_method_title: "Arbeitsweise & Methoden",
+        method_1: "Lösungsorientiertes Handeln",
+        method_2: "Strukturiertes Vorgehen",
+        method_3: "Effizientes Zeitmanagement",
+        method_4: "Anwenderorientierte Schulungen",
+        edu_title: "Akademische Ausbildung",
+        edu_degree: "Bachelor & Master in Mathematik & Informatik",
+        edu_period: "Sept. 2012 – Jan. 2018",
+        edu_focus_label: "Vertiefungsschwerpunkte:",
+        edu_focus_val: "Höhere Mathematik, Physik, IT-Verwaltung & Systemarchitekturen.",
+        lang_section_title: "Sprachkenntnisse",
+        lang_name_de: "Deutsch",
+        lang_level_de: "Fließend in Wort & Schrift",
+        lang_name_en: "Englisch",
+        lang_level_en: "Fließend / Verhandlungssicher",
+        lang_name_sq: "Albanisch",
+        lang_level_sq: "Muttersprache",
+        lang_name_it: "Italienisch",
+        lang_level_it: "Gute Kenntnisse",
+        btn_pdf_export: "Als PDF herunterladen / drucken",
+        contact_direct_title: "Direkter Kontakt",
+        contact_direct_desc: "Für berufliche Anfragen oder Vernetzung stehe ich gerne telefonisch oder per E-Mail zur Verfügung.",
+        contact_label_email: "E-Mail Adresse",
+        contact_label_phone: "Telefon",
+        contact_label_location: "Standort",
+        personal_info_title: "Persönliche Informationen",
+        pi_label_dob: "Geburtsdatum:",
+        pi_label_status: "Familienstand:",
+        pi_val_status: "Ledig",
+        pi_label_citizenship: "Staatsangehörigkeit:",
+        pi_val_citizenship: "Deutsch",
+        pi_label_license: "Führerschein:",
+        pi_val_license: "Klasse B",
+        pi_label_hobbies: "Interessen & Ausgleich:",
+        pi_val_hobbies: "Fitness & Kraftsport, interkultureller Austausch, Reisen",
+        btn_pdf_full: "Gesamt-Lebenslauf als PDF herunterladen",
+        footer_title: "SAP FI/CO/MM Berater",
+        persona_badge: "KI-Begleiter",
+        persona_role: "Blau-Feld Guide",
+        persona_btn_listen: "Vorlesen",
+        persona_btn_stop: "Stop",
+        persona_greeting: "Herzlich willkommen! Vielen Dank für Ihr Interesse an Engjells interaktivem Lebenslauf. Ich bin sein digitaler Begleiter und führe Sie gerne durch seine SAP-Kompetenzen.",
+        persona_speech_audio: "Herzlich willkommen! Vielen Dank für Ihr Interesse an Engjells interaktivem Lebenslauf. Ich bin sein digitaler Begleiter und führe Sie gerne durch seine SAP-Kompetenzen."
+      },
+      en: {
+        badge_consultant: "SAP Consultant",
+        nav_home: "Home",
+        nav_experience: "Work Experience",
+        nav_skills: "Skills & Education",
+        nav_contact: "Contact",
+        hero_subtitle: "SAP FI / CO / MM Consultant",
+        hero_text: "Experienced SAP Consultant with deep expertise in core modules FI, CO, and MM, backed by years of experience analyzing, harmonizing, and continuously optimizing complex business processes. Skilled in customizing, technical support, troubleshooting, and delivering future-proof SAP solutions.",
+        hero_btn_exp: "View Experience",
+        hero_btn_contact: "Get in Touch",
+        stat_title_1: "SAP Core Modules",
+        stat_desc_1: "Specialization in Financial Accounting (FI), Controlling (CO), Materials Management (MM) and Customizing.",
+        stat_title_2: "Technical Know-how",
+        stat_desc_2: "ABAP development, SAP ILM data archiving, and solid knowledge of modern IT infrastructures.",
+        stat_title_3: "Academic Background",
+        stat_desc_3: "Successfully completed Bachelor's and Master's degrees in Mathematics and Computer Science.",
+        home_current_title: "Current Position",
+        home_current_desc: "Responsible for optimizing cross-functional financial and material flow processes, tailor-made module customizing, and conducting key-user and end-user training.",
+        exp_section_title: "Work Experience",
+        exp_role_1: "SAP Inhouse Consultant (FI / CO / MM)",
+        exp_period_1: "Oct. 2022 – Present",
+        exp_1_t1: "Analysis, modeling, and continuous optimization of cross-functional business processes in Financial Accounting (FI), Controlling (CO), and Materials Management (MM).",
+        exp_1_t2: "Tailored customizing and functional development of the SAP system landscape aligned with business requirements.",
+        exp_1_t3: "Planning and execution of hands-on training sessions for key users and end users, as well as continuous second- and third-level support.",
+        exp_1_t4: "Structured troubleshooting (incident and problem management) and ensuring stable and high-performance system operations.",
+        exp_1_t5: "Participation in release upgrades, implementation of support packages, and technical guidance for system enhancements.",
+        exp_1_t6: "Close interface communication and partnership with functional departments for defining and implementing change requests.",
+        exp_role_2: "IT Systems Technician",
+        exp_period_2: "Apr. 2021 – Sept. 2022",
+        exp_2_t1: "Professional installation, configuration, administration, and maintenance of modern IT infrastructures, server landscapes, and network components.",
+        exp_2_t2: "Systematic troubleshooting and sustainable hardware/software issue resolution through on-site and remote support.",
+        exp_2_t3: "Execution of OS and software upgrades as well as implementation of robust security and backup concepts.",
+        exp_role_3: "SAP ILM Consultant / IT Specialist",
+        exp_period_3: "Jan. 2020 – Mar. 2021",
+        exp_3_t1: "Development and adaptation of custom functionalities and interfaces using ABAP.",
+        exp_3_t2: "Conceptual and technical implementation of solutions in SAP Information Lifecycle Management (ILM) and data archiving.",
+        exp_3_t3: "Active participation across project phases from requirements gathering to successful go-live.",
+        skills_tech_title: "Technical Skills",
+        skill_badge_1: "Process Analysis & Optimization",
+        skill_badge_2: "Troubleshooting & Support",
+        skill_badge_3: "IT Infrastructure & Networks",
+        skill_badge_4: "System Administration",
+        skills_method_title: "Methodologies & Working Style",
+        method_1: "Solution-Oriented Action",
+        method_2: "Structured Approach",
+        method_3: "Efficient Time Management",
+        method_4: "User-Oriented Training",
+        edu_title: "Academic Education",
+        edu_degree: "Bachelor & Master in Mathematics & Computer Science",
+        edu_period: "Sept. 2012 – Jan. 2018",
+        edu_focus_label: "Specialization Areas:",
+        edu_focus_val: "Advanced Mathematics, Physics, IT Administration & System Architectures.",
+        lang_section_title: "Languages",
+        lang_name_de: "German",
+        lang_level_de: "Fluent (spoken & written)",
+        lang_name_en: "English",
+        lang_level_en: "Fluent / Business Proficiency",
+        lang_name_sq: "Albanian",
+        lang_level_sq: "Native language",
+        lang_name_it: "Italian",
+        lang_level_it: "Good command",
+        btn_pdf_export: "Download PDF / Print",
+        contact_direct_title: "Direct Contact",
+        contact_direct_desc: "Available for business inquiries, projects, and professional networking via phone or email.",
+        contact_label_email: "Email Address",
+        contact_label_phone: "Phone",
+        contact_label_location: "Location",
+        personal_info_title: "Personal Details",
+        pi_label_dob: "Date of Birth:",
+        pi_label_status: "Marital Status:",
+        pi_val_status: "Single",
+        pi_label_citizenship: "Citizenship:",
+        pi_val_citizenship: "German",
+        pi_label_license: "Driving License:",
+        pi_val_license: "Class B",
+        pi_label_hobbies: "Interests & Leisure:",
+        pi_val_hobbies: "Fitness & Strength Training, intercultural exchange, traveling",
+        btn_pdf_full: "Download Complete CV as PDF",
+        footer_title: "SAP FI/CO/MM Consultant",
+        persona_badge: "AI Companion",
+        persona_role: "Blue Field Guide",
+        persona_btn_listen: "Listen",
+        persona_btn_stop: "Stop",
+        persona_greeting: "Welcome! Thank you for reviewing Engjell's interactive CV. I am his digital assistant and look forward to guiding you through his SAP expertise.",
+        persona_speech_audio: "Welcome! Thank you for reviewing Engjell's interactive CV. I am his digital assistant and look forward to guiding you through his SAP expertise."
+      },
+      sq: {
+        badge_consultant: "Konsulent SAP",
+        nav_home: "Ballina",
+        nav_experience: "Përvoja Profesionale",
+        nav_skills: "Aftësitë & Edukimi",
+        nav_contact: "Kontakti",
+        hero_subtitle: "Konsulent SAP FI / CO / MM",
+        hero_text: "Konsulent me përvojë i certifikuar në modulet kryesore SAP FI, CO dhe MM, me praktikë shumëvjeçare në analizimin, harmonizimin dhe optimizimin e proceseve komplekse të biznesit. Ekspert në Customizing, mbështetje teknike, zgjidhjen e problemeve dhe zbatimin e zgjidhjeve inovative SAP.",
+        hero_btn_exp: "Shiko Përvojën",
+        hero_btn_contact: "Më Kontaktoni",
+        stat_title_1: "Modulet Kryesore SAP",
+        stat_desc_1: "Specializim në Financë (FI), Kontroll (CO), Menaxhim Materialesh (MM) dhe Customizing.",
+        stat_title_2: "Njohuri Teknike",
+        stat_desc_2: "Zhvillim në ABAP, arkivim të dhënash SAP ILM dhe njohuri të thella në infrastrukturën moderne të TI.",
+        stat_title_3: "Formimi Akademik",
+        stat_desc_3: "Diplomuar me sukses në nivelin Bachelor & Master në Matematikë dhe Informatikë.",
+        home_current_title: "Pozicioni Aktual",
+        home_current_desc: "Përgjegjës për optimizimin e proceseve financiare dhe të qarkullimit të mallrave, konfigurim të personalizuar të moduleve dhe trajnime për përdoruesit kryesorë.",
+        exp_section_title: "Përvoja Profesionale",
+        exp_role_1: "Konsulent i Brendshëm SAP (FI / CO / MM)",
+        exp_period_1: "Tet. 2022 – Sot",
+        exp_1_t1: "Analizë, modelim dhe optimizim i vazhdueshëm i proceseve ndërsektoriale të biznesit në Financë (FI), Kontroll (CO) dhe Menaxhim Materialesh (MM).",
+        exp_1_t2: "Konfigurim i përshtatur (Customizing) dhe zhvillim funksional i mjedisit sistemor SAP sipas kërkesave të ndërmarrjes.",
+        exp_1_t3: "Planifikim dhe zhvillim i trajnimeve praktike për Key-User dhe përdoruesit fundorë, si dhe mbështetje e vazhdueshme e nivelit të 2-të dhe të 3-të.",
+        exp_1_t4: "Analizë e strukturuar e gabimeve (Incident & Problem Management) si dhe sigurimi i funksionimit të qëndrueshëm dhe me performancë të lartë të sistemit.",
+        exp_1_t5: "Pjesëmarrje në përditësimet e verzioneve (Release Upgrade), instalimin e Support Packages dhe mbikëqyrje teknike e zgjerimeve të sistemit.",
+        exp_1_t6: "Komunikim i ngushtë i ndërfaqeve dhe bashkëpunim i ngushtë me departamentet profesionale për përcaktimin dhe zbatimin e kërkesave për ndryshim (Change Requests).",
+        exp_role_2: "Teknik i Sistemeve të TI",
+        exp_period_2: "Prill 2021 – Shtat. 2022",
+        exp_2_t1: "Instalim profesional, konfigurim, administrim dhe mirëmbajtje e infrastrukturave moderne të TI, serverëve dhe komponentëve të rrjetit.",
+        exp_2_t2: "Diagnostikim sistematik dhe zgjidhje e qëndrueshme e problemeve të pajisjeve harduerike dhe softuerike në mbështetjen në vend dhe në distancë.",
+        exp_2_t3: "Planifikim dhe zbatim i përditësimeve të sistemeve operative dhe softuerëve, si dhe zbatimi i koncepteve të forta të sigurisë dhe ruajtjes së të dhënave (Backup).",
+        exp_role_3: "Konsulent SAP ILM / Specialist i Informatikës",
+        exp_period_3: "Jan. 2020 – Mars 2021",
+        exp_3_t1: "Zhvillimi dhe përshtatja e funksionaliteteve dhe ndërfaqeve të personalizuara sipas klientit duke përdorur ABAP.",
+        exp_3_t2: "Zbatimi konceptual dhe teknik i zgjidhjeve në fushën e SAP Information Lifecycle Management (ILM) dhe arkivimit të të dhënave.",
+        exp_3_t3: "Pjesëmarrje aktive në fazat e projektit që nga mbledhja e kërkesave deri te vënia e suksesshme në punë prodhuese.",
+        skills_tech_title: "Aftësitë Profesionale",
+        skill_badge_1: "Analizë & Optimizim Procesesh",
+        skill_badge_2: "Analizë e Gabimeve & Mbështetje",
+        skill_badge_3: "Infrastrukturë TI & Rrjeta",
+        skill_badge_4: "Administrim Sistemi",
+        skills_method_title: "Metodat & Mënyra e Punës",
+        method_1: "Veprim i orientuar drejt zgjidhjes",
+        method_2: "Qasje e strukturuar",
+        method_3: "Menaxhim efikas i kohës",
+        method_4: "Trajnime të orientuara te përdoruesi",
+        edu_title: "Edukimi Akademik",
+        edu_degree: "Bachelor & Master në Matematikë dhe Informatikë",
+        edu_period: "Shtat. 2012 – Jan. 2018",
+        edu_focus_label: "Fushat e Përqendrimit:",
+        edu_focus_val: "Matematikë e Avancuar, Fizikë, Administrim TI & Arkitektura Sistemesh.",
+        lang_section_title: "Njohuritë Gjuhësore",
+        lang_name_de: "Gjermanisht",
+        lang_level_de: "Rrjedhshëm në të folur dhe me shkrim",
+        lang_name_en: "Anglisht",
+        lang_level_en: "Rrjedhshëm / Nivel biznesi",
+        lang_name_sq: "Shqip",
+        lang_level_sq: "Gjuhë amtare",
+        lang_name_it: "Italisht",
+        lang_level_it: "Njohuri të mira",
+        btn_pdf_export: "Shkarko si PDF / Printo",
+        contact_direct_title: "Kontakti i Drejtpërdrejtë",
+        contact_direct_desc: "Për kërkesa profesionale ose bashkëpunim, jam me kënaqësi në dispozicion me telefon ose me email.",
+        contact_label_email: "Adresa e Email-it",
+        contact_label_phone: "Telefoni",
+        contact_label_location: "Vendndodhja",
+        personal_info_title: "Të Dhëna Personale",
+        pi_label_dob: "Datëlindja:",
+        pi_label_status: "Gjendja civile:",
+        pi_val_status: "Beqar",
+        pi_label_citizenship: "Shtetësia:",
+        pi_val_citizenship: "Gjermane",
+        pi_label_license: "Leje drejtimi:",
+        pi_val_license: "Kategoria B",
+        pi_label_hobbies: "Interesat & Koha e lirë:",
+        pi_val_hobbies: "Fitnes & Trajnim force, shkëmbim ndërkulturor, udhëtime",
+        btn_pdf_full: "Shkarko CV-në e plotë si PDF",
+        footer_title: "Konsulent SAP FI/CO/MM",
+        persona_badge: "Shoqëruesi AI",
+        persona_role: "Udhëzuesi Fushë-Kaltër",
+        persona_btn_listen: "Dëgjo",
+        persona_btn_stop: "Ndalo",
+        persona_greeting: "Mirë se vini! Faleminderit për interesimin tuaj në CV-në interaktive të Engjellit. Jam asistenti i tij digjital dhe ju udhëheq me kënaqësi nëpër kompetencat e tij SAP.",
+        persona_speech_audio: "Mirë se vini! Faleminderit për interesimin tuaj në CV-në interaktive të Engjellit. Jam asistenti i tij digjital dhe ju udhëheq me kënaqësi nëpër kompetencat e tij SAP."
+      },
+      it: {
+        badge_consultant: "Consulente SAP",
+        nav_home: "Home",
+        nav_experience: "Esperienza Lavorativa",
+        nav_skills: "Competenze & Formazione",
+        nav_contact: "Contatto",
+        hero_subtitle: "Consulente SAP FI / CO / MM",
+        hero_text: "Consulente SAP esperto con solida competenza nei moduli chiave FI, CO e MM, nonché pluriennale esperienza nell'analisi, armonizzazione e ottimizzazione continua di processi aziendali complessi. Esperto in customizing, supporto tecnico, risoluzione problemi e implementazione di soluzioni SAP all'avanguardia.",
+        hero_btn_exp: "Vedi Esperienza",
+        hero_btn_contact: "Contattami",
+        stat_title_1: "Moduli Principali SAP",
+        stat_desc_1: "Specializzazione in Contabilità Finanziaria (FI), Controllo di Gestione (CO), Gestione Materiali (MM) e Customizing.",
+        stat_title_2: "Competenze Tecniche",
+        stat_desc_2: "Sviluppo in ABAP, archiviazione dati SAP ILM e solida conoscenza delle moderne infrastrutture IT.",
+        stat_title_3: "Formazione Accademica",
+        stat_desc_3: "Laurea Triennale e Magistrale conseguite con successo in Matematica e Informatica.",
+        home_current_title: "Posizione Attuale",
+        home_current_desc: "Responsabile dell'ottimizzazione dei processi interfunzionali di flusso finanziario e materiali, customizing mirato dei moduli e formazione utenti.",
+        exp_section_title: "Esperienza Lavorativa",
+        exp_role_1: "Consulente Inhouse SAP (FI / CO / MM)",
+        exp_period_1: "Ott. 2022 – Presente",
+        exp_1_t1: "Analisi, modellazione e ottimizzazione continua dei processi aziendali interfunzionali in Contabilità Finanziaria (FI), Controllo di Gestione (CO) e Gestione Materiali (MM).",
+        exp_1_t2: "Customizing mirato e sviluppo funzionale del paesaggio sistemico SAP in base alle specifiche aziendali.",
+        exp_1_t3: "Pianificazione ed esecuzione di corsi di formazione pratici per key-user ed utenti finali, nonché supporto continuo di 2° e 3° livello.",
+        exp_1_t4: "Analisi strutturata degli errori (Incident & Problem Management) e garanzia di un funzionamento stabile ed efficiente dei sistemi.",
+        exp_1_t5: "Collaborazione agli aggiornamenti di versione, applicazione di pacchetti di supporto e assistenza tecnica alle espansioni di sistema.",
+        exp_1_t6: "Stretta comunicazione di interfaccia e collaborazione sinergica con i reparti aziendali per la definizione e l'attuazione dei Change Request.",
+        exp_role_2: "Tecnico di Sistemi IT",
+        exp_period_2: "Apr. 2021 – Sett. 2022",
+        exp_2_t1: "Installazione, configurazione, amministrazione e manutenzione professionale di infrastrutture IT moderne, server e componenti di rete.",
+        exp_2_t2: "Diagnosi sistematica dei guasti e risoluzione sostenibile dei problemi hardware e software nell'ambito del supporto in loco e remoto.",
+        exp_2_t3: "Pianificazione ed esecuzione di aggiornamenti del sistema operativo e del software, nonché implementazione di solidi concetti di sicurezza e backup.",
+        exp_role_3: "Consulente SAP ILM / Specialista Informatico",
+        exp_period_3: "Gen. 2020 – Mar. 2021",
+        exp_3_t1: "Sviluppo e adattamento di funzionalità e interfacce personalizzate per i clienti tramite linguaggio ABAP.",
+        exp_3_t2: "Implementazione concettuale e tecnica di soluzioni nel campo di SAP Information Lifecycle Management (ILM) e archiviazione dati.",
+        exp_3_t3: "Partecipazione attiva alle fasi progettuali dall'acquisizione dei requisiti fino al rilascio produttivo.",
+        skills_tech_title: "Competenze Professionali",
+        skill_badge_1: "Analisi & Ottimizzazione Processi",
+        skill_badge_2: "Risoluzione Problemi & Supporto",
+        skill_badge_3: "Infrastrutture IT & Reti",
+        skill_badge_4: "Amministrazione di Sistema",
+        skills_method_title: "Metodologie & Approccio",
+        method_1: "Azione orientata alle soluzioni",
+        method_2: "Approccio strutturato",
+        method_3: "Gestione efficiente del tempo",
+        method_4: "Formazione orientata all'utente",
+        edu_title: "Formazione Accademica",
+        edu_degree: "Laurea Triennale & Magistrale in Matematica e Informatica",
+        edu_period: "Sett. 2012 – Gen. 2018",
+        edu_focus_label: "Ambiti di Specializzazione:",
+        edu_focus_val: "Matematica Superiore, Fisica, Gestione IT & Architetture di Sistema.",
+        lang_section_title: "Competenze Linguistiche",
+        lang_name_de: "Tedesco",
+        lang_level_de: "Fluente parlato e scritto",
+        lang_name_en: "Inglese",
+        lang_level_en: "Fluente / Professionale",
+        lang_name_sq: "Albanese",
+        lang_level_sq: "Madrelingua",
+        lang_name_it: "Italiano",
+        lang_level_it: "Buona conoscenza",
+        btn_pdf_export: "Scarica PDF / Stampa",
+        contact_direct_title: "Contatto Diretto",
+        contact_direct_desc: "Disponibile per richieste professionali o networking via telefono o e-mail.",
+        contact_label_email: "Indirizzo E-Mail",
+        contact_label_phone: "Telefono",
+        contact_label_location: "Località",
+        personal_info_title: "Informazioni Personali",
+        pi_label_dob: "Data di nascita:",
+        pi_label_status: "Stato civile:",
+        pi_val_status: "Celibe",
+        pi_label_citizenship: "Cittadinanza:",
+        pi_val_citizenship: "Tedesca",
+        pi_label_license: "Patente di guida:",
+        pi_val_license: "Categoria B",
+        pi_label_hobbies: "Interessi & Tempo libero:",
+        pi_val_hobbies: "Fitness & Allenamento della forza, scambio interculturale, viaggi",
+        btn_pdf_full: "Scarica CV completo in formato PDF",
+        footer_title: "Consulente SAP FI/CO/MM",
+        persona_badge: "Compagno AI",
+        persona_role: "Guida Campo Blu",
+        persona_btn_listen: "Ascolta",
+        persona_btn_stop: "Stop",
+        persona_greeting: "Benvenuti! Grazie per il vostro interesse per il CV interattivo di Engjell. Sono il suo assistente digitale e vi guiderò con piacere attraverso le sue competenze SAP.",
+        persona_speech_audio: "Benvenuti! Grazie per il vostro interesse per il CV interattivo di Engjell. Sono il suo assistente digitale e vi guiderò con piacere attraverso le sue competenze SAP."
+      }
+    };
+
+    const flagSVGs = {
+      de: '<svg class="flag-icon" viewBox="0 0 5 3" aria-hidden="true"><rect width="5" height="1" y="0" fill="#000"/><rect width="5" height="1" y="1" fill="#D00"/><rect width="5" height="1" y="2" fill="#FFCE00"/></svg>',
+      en: '<svg class="flag-icon" viewBox="0 0 60 30" aria-hidden="true"><clipPath id="s_curr"><path d="M0,0 v30 h60 v-30 z"/></clipPath><clipPath id="t_curr"><path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z"/></clipPath><g clip-path="url(#s_curr)"><path d="M0,0 v30 h60 v-30 z" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" clip-path="url(#t_curr)" stroke="#C8102E" stroke-width="4"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/></g></svg>',
+      sq: '<svg class="flag-icon" viewBox="0 0 7 5" aria-hidden="true"><rect width="7" height="5" fill="#DA291C"/><g fill="#000" transform="translate(3.5, 2.5) scale(0.35)"><path d="M0,-3 L0.8,-1.5 L2.5,-2 L1.8,-0.5 L3,0.5 L1.3,0.6 L1.7,2.2 L0.4,1.3 L0,3 L-0.4,1.3 L-1.7,2.2 L-1.3,0.6 L-3,0.5 L-1.8,-0.5 L-2.5,-2 L-0.8,-1.5 Z"/></g></svg>',
+      it: '<svg class="flag-icon" viewBox="0 0 3 2" aria-hidden="true"><rect width="1" height="2" x="0" fill="#009246"/><rect width="1" height="2" x="1" fill="#fff"/><rect width="1" height="2" x="2" fill="#ce2b37"/></svg>'
+    };
+
+    function toggleLangMenu(event) {
+      if (event) event.stopPropagation();
+      const menu = document.getElementById('langMenuDropdown');
+      const trigger = document.getElementById('langTriggerBtn');
+      if (menu) {
+        const isOpen = menu.classList.toggle('show');
+        if (trigger) trigger.setAttribute('aria-expanded', isOpen);
+      }
+    }
+
+    function selectLanguage(lang) {
+      setLanguage(lang);
+      const menu = document.getElementById('langMenuDropdown');
+      const trigger = document.getElementById('langTriggerBtn');
+      if (menu) menu.classList.remove('show');
+      if (trigger) trigger.setAttribute('aria-expanded', 'false');
+    }
+
+    // Dropdown bei Klick außerhalb schließen
+    document.addEventListener('click', function(event) {
+      const wrapper = document.getElementById('langDropdownWrapper');
+      const menu = document.getElementById('langMenuDropdown');
+      const trigger = document.getElementById('langTriggerBtn');
+      if (wrapper && !wrapper.contains(event.target)) {
+        if (menu) menu.classList.remove('show');
+        if (trigger) trigger.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    function setLanguage(lang) {
+      // Aktiven Status in den Optionen aktualisieren
+      document.querySelectorAll('.lang-option').forEach(opt => {
+        if (opt.getAttribute('data-lang') === lang) {
+          opt.classList.add('active');
+        } else {
+          opt.classList.remove('active');
+        }
+      });
+
+      // Trigger-Button aktualisieren (Flagge + Label)
+      const triggerBtn = document.getElementById('langTriggerBtn');
+      if (triggerBtn && flagSVGs[lang]) {
+        triggerBtn.innerHTML = `${flagSVGs[lang]}<span id="currentLangLabel">${lang.toUpperCase()}</span><i class="fa-solid fa-chevron-down" style="font-size: 0.7rem; color: #64748b; margin-left: 2px;"></i>`;
+      }
+
+      const dict = translations[lang];
+      if (!dict) return;
+
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (dict[key] !== undefined) {
+          el.textContent = dict[key];
+        }
+      });
+
+      // Begrüßungstext der Persona aktualisieren
+      const personaTextEl = document.getElementById('personaSpeechText');
+      if (personaTextEl && dict.persona_greeting) {
+        personaTextEl.textContent = dict.persona_greeting;
+      }
+
+      document.documentElement.lang = lang;
+    }
+
+    /* =========================================
+       KI-PERSONA (KINDER-FIGUR & AUDIO-SYNTHESE & CHATBOT)
+       ========================================= */
+    let personaAudioMuted = false;
+    let personaBubbleOpen = true;
+    let personaLastSpokenText = "Herzlich willkommen! Vielen Dank für Ihr Interesse an Engjells interaktivem Lebenslauf. Ich bin sein digitaler Begleiter und führe Sie gerne durch seine SAP-Kompetenzen.";
+
+    function getCurrentLang() {
+      return document.documentElement.lang || 'de';
+    }
+
+    function updateSpeakButtons(isSpeaking) {
+      const playBtn = document.getElementById('personaPlayBtn');
+      const stopBtn = document.getElementById('personaStopBtn');
+      if (stopBtn) {
+        stopBtn.style.display = isSpeaking ? 'inline-flex' : 'none';
+      }
+      if (playBtn) {
+        playBtn.style.display = isSpeaking ? 'none' : 'inline-flex';
+      }
+    }
+
+    function stopSpeaking() {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+      updateSpeakButtons(false);
+    }
+
+    function speakText(text) {
+      if (personaAudioMuted) return;
+      if (!('speechSynthesis' in window)) return;
+
+      window.speechSynthesis.cancel();
+      personaLastSpokenText = text;
+
+      const lang = getCurrentLang();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.pitch = 0.92;
+      utterance.rate = 0.98;
+
+      const langMap = {
+        de: 'de-DE',
+        en: 'en-US',
+        sq: 'sq-AL',
+        it: 'it-IT'
+      };
+      utterance.lang = langMap[lang] || 'de-DE';
+
+      const voices = window.speechSynthesis.getVoices();
+      if (voices.length > 0) {
+        const targetLangPrefix = (langMap[lang] || 'de').substring(0, 2);
+        const langVoices = voices.filter(v => v.lang.startsWith(targetLangPrefix));
+        const maleVoice = langVoices.find(v => /male|stefan|markus|david|george|martin|conrad|daniel|paul/i.test(v.name)) || langVoices[0];
+        if (maleVoice) utterance.voice = maleVoice;
+      }
+
+      utterance.onstart = function() {
+        updateSpeakButtons(true);
+      };
+      utterance.onend = function() {
+        updateSpeakButtons(false);
+      };
+      utterance.onerror = function() {
+        updateSpeakButtons(false);
+      };
+
+      window.speechSynthesis.speak(utterance);
+    }
+
+    function speakPersonaGreeting() {
+      const lang = getCurrentLang();
+      const dict = translations[lang] || translations.de;
+      const textToSpeak = dict.persona_speech_audio || dict.persona_greeting;
+      speakText(textToSpeak);
+    }
+
+    function speakPersonaLastMsg() {
+      speakText(personaLastSpokenText);
+    }
+
+    function addPersonaChatMessage(sender, text) {
+      const log = document.getElementById('personaChatLog');
+      if (!log) return;
+
+      const msgDiv = document.createElement('div');
+      msgDiv.className = `persona-msg ${sender === 'user' ? 'persona-msg-user' : 'persona-msg-bot'}`;
+      msgDiv.textContent = text;
+      log.appendChild(msgDiv);
+      log.scrollTop = log.scrollHeight;
+    }
+
+    // Guiding-Funktion: Navigiert zum gewünschten Tab und scrollt bei Bedarf
+    function guideToSection(tabName) {
+      if (typeof switchTab === 'function') {
+        switchTab(tabName);
+      }
+      // Nach Tab-Wechsel sanft nach oben zum Content scrollen
+      window.scrollTo({ top: 120, behavior: 'smooth' });
+    }
+
+    // Intelligente Beantwortung, Navigation & Durchsuchen von Engjells Lebenslauf
+    function queryEngjellCV(query) {
+      const q = query.toLowerCase().trim();
+      const lang = getCurrentLang();
+
+      // SAP Module / FI / CO / MM / S/4HANA
+      if (q.includes('sap') || q.includes('modul') || q.includes('fi') || q.includes('co') || q.includes('mm') || q.includes('s/4') || q.includes('hana')) {
+        guideToSection('skills');
+        if (lang === 'en') {
+          return "Engjell specializes in SAP FI (General Ledger, Accounts Payable/Receivable, Asset Accounting), SAP CO (Cost Centers, Profit Centers, Internal Orders), and SAP MM (Procurement, Inventory Management). He is certified in SAP S/4HANA FI.";
+        } else if (lang === 'sq') {
+          return "Engjelli është i specializuar në SAP FI (Kontabiliteti i Përgjithshëm, AP/AR), SAP CO (Qendrat e Kostove, Urdhrat e Brendshëm) dhe SAP MM (Prokurimi dhe Menaxhimi i Stokut). Është i certifikuar në SAP S/4HANA FI.";
+        } else if (lang === 'it') {
+          return "Engjell è specializzato in SAP FI (Contabilità generale, Debiti/Crediti, Cespiti), SAP CO (Centri di costo, Ordini interni) e SAP MM (Acquisti, Gestione scorte). È certificato SAP S/4HANA FI.";
+        }
+        return "Engjell ist spezialisiert auf SAP FI (Hauptbuch, Debitoren/Kreditoren, Anlagenbuchhaltung), SAP CO (Kostenstellen, Innenaufträge) und SAP MM (Beschaffung, Bestandsführung). Zudem ist er in SAP S/4HANA FI zertifiziert.";
+      }
+
+      // Berufserfahrung / Arbeit / Karriere / Aktuell
+      if (q.includes('erfahrung') || q.includes('job') || q.includes('beruf') || q.includes('karriere') || q.includes('arbeit') || q.includes('experience') || q.includes('pune') || q.includes('lavoro')) {
+        guideToSection('experience');
+        if (lang === 'en') {
+          return "Engjell currently works as an SAP FI/CO/MM Consultant at BSH Bosch and Siemens Home Appliances Group, leading SAP rollouts, S/4HANA migration projects, and business process automation.";
+        } else if (lang === 'sq') {
+          return "Engjelli punon aktualisht si Konsulent SAP FI/CO/MM në BSH Bosch und Siemens Home Appliances Group, duke udhëhequr migrime në S/4HANA dhe optimizime të proceseve.";
+        } else if (lang === 'it') {
+          return "Engjell lavora come Consulente SAP FI/CO/MM presso BSH Bosch und Siemens Home Appliances Group, gestendo progetti di migrazione a S/4HANA e roll-out internazionali.";
+        }
+        return "Engjell ist aktuell als SAP FI/CO/MM Berater bei der BSH Bosch und Siemens Hausgeräte Gruppe tätig. Dort leitet er SAP-Rollouts, S/4HANA-Migrationen und Prozessautomatisierungen im Finanz- und Logistikwesen.";
+      }
+
+      // Sprachen / Languages
+      if (q.includes('sprache') || q.includes('deutsch') || q.includes('englisch') || q.includes('albanisch') || q.includes('italienisch') || q.includes('language') || q.includes('gjuhe') || q.includes('lingue')) {
+        guideToSection('skills');
+        if (lang === 'en') {
+          return "Engjell speaks German (fluent/business), English (fluent/business), Albanian (native), and Italian (conversational).";
+        } else if (lang === 'sq') {
+          return "Engjelli flet shqip (gjuhë amtare), gjermanisht (rrjedhshëm/profesionale), anglisht (rrjedhshëm) dhe italisht (bisedore).";
+        } else if (lang === 'it') {
+          return "Engjell parla correntemente tedesco e inglese a livello professionale, albanese (madrelingua) e italiano (livello colloquiale).";
+        }
+        return "Engjell beherrscht Deutsch (verhandlungssicher), Englisch (fließend), Albanisch (Muttersprache) und Italienisch (gute Kenntnisse).";
+      }
+
+      // Kontakt / Email / Telefon / WhatsApp / LinkedIn
+      if (q.includes('kontakt') || q.includes('mail') || q.includes('telefon') || q.includes('nummer') || q.includes('linkedin') || q.includes('whatsapp') || q.includes('contact') || q.includes('hire')) {
+        guideToSection('contact');
+        if (lang === 'en') {
+          return "You can reach Engjell via email at contact@engjell-dervishi.com or directly via WhatsApp and LinkedIn using the quick-contact button in the bottom right corner.";
+        } else if (lang === 'sq') {
+          return "Mund të kontaktoni Engjellin me email në contact@engjell-dervishi.com ose drejtpërdrejt përmes WhatsApp dhe LinkedIn në menynë djathtas.";
+        } else if (lang === 'it') {
+          return "Puoi contattare Engjell via email a contact@engjell-dervishi.com oppure direttamente su WhatsApp e LinkedIn dal pulsante in basso a destra.";
+        }
+        return "Sie können Engjell per E-Mail an contact@engjell-dervishi.com oder direkt über WhatsApp und LinkedIn (über das Kontakt-Symbol unten rechts) kontaktieren.";
+      }
+
+      // Zertifikate / Ausbildung / Studium
+      if (q.includes('zertifikat') || q.includes('studium') || q.includes('ausbildung') || q.includes('education') || q.includes('certif') || q.includes('shkolla')) {
+        guideToSection('skills');
+        if (lang === 'en') {
+          return "Engjell holds official SAP S/4HANA Financial Accounting certifications as well as degrees in Business Information Technology and Project Management.";
+        }
+        return "Engjell besitzt Zertifizierungen in SAP S/4HANA Financial Accounting sowie einen fundierten akademischen Hintergrund in Wirtschaftsinformatik und Projektmanagement.";
+      }
+
+      // Hobbys / Interessen
+      if (q.includes('hobby') || q.includes('interess') || q.includes('freizeit') || q.includes('fitness') || q.includes('sport')) {
+        guideToSection('profile');
+        if (lang === 'en') {
+          return "Outside of SAP consulting, Engjell enjoys fitness & strength training, intercultural exchange, and traveling.";
+        }
+        return "In seiner Freizeit engagiert sich Engjell für Fitness & Kraftsport, interkulturellen Austausch und Reisen.";
+      }
+
+      // PDF / Download
+      if (q.includes('pdf') || q.includes('download') || q.includes('drucken') || q.includes('print')) {
+        guideToSection('contact');
+        return "Sie können Engjells kompletten Lebenslauf als druckoptimiertes PDF auf der Kontakt-Registerkarte herunterladen.";
+      }
+
+      // Standard-Antwort mit Orientierung
+      if (lang === 'en') {
+        return `I searched Engjell's CV for "${query}". You can explore his profile via the tabs above or ask specifically about his SAP modules, projects, or languages!`;
+      }
+      return `Ich habe Engjells Lebenslauf nach „${query}“ durchsucht. Sie können oben gezielt die Bereiche Erfahrung, Skills oder Kontakt ansehen oder mich nach SAP-Modulen und Projekten fragen!`;
+    }
+
+    function handlePersonaChatSubmit(e) {
+      if (e) e.preventDefault();
+      const input = document.getElementById('personaChatInput');
+      if (!input) return;
+
+      const query = input.value.trim();
+      if (!query) return;
+
+      // 1. Nutzernachricht anzeigen
+      addPersonaChatMessage('user', query);
+      input.value = '';
+
+      // 2. Antwort berechnen und Lebenslauf durchsuchen
+      setTimeout(() => {
+        const answer = queryEngjellCV(query);
+        addPersonaChatMessage('bot', answer);
+        speakText(answer);
+      }, 250);
+    }
+
+    function askPersonaQuick(topic) {
+      const input = document.getElementById('personaChatInput');
+      if (input) {
+        input.value = topic;
+      }
+      handlePersonaChatSubmit();
+    }
+
+    function togglePersonaVoice() {
+      personaAudioMuted = !personaAudioMuted;
+      const icon = document.getElementById('personaVoiceIcon');
+      if (icon) {
+        if (personaAudioMuted) {
+          icon.className = 'fa-solid fa-volume-xmark';
+          window.speechSynthesis.cancel();
+        } else {
+          icon.className = 'fa-solid fa-volume-high';
+          speakPersonaGreeting();
+        }
+      }
+    }
+
+    function minimizePersonaBubble() {
+      const bubble = document.getElementById('personaBubble');
+      if (bubble) {
+        personaBubbleOpen = false;
+        bubble.style.display = 'none';
+      }
+    }
+
+    function handlePersonaAvatarClick() {
+      const bubble = document.getElementById('personaBubble');
+      if (bubble) {
+        if (bubble.style.display === 'none') {
+          bubble.style.display = 'block';
+          personaBubbleOpen = true;
+        }
+      }
+      speakPersonaGreeting();
+    }
+
+    // Beim Laden der Hauptseite: Begrüßung der Persona aktivieren
+    window.addEventListener('DOMContentLoaded', () => {
+      const linkElem = document.getElementById('pdfWebLink');
+      if (linkElem) {
+        const currentUrl = window.location.href;
+        linkElem.href = currentUrl;
+        linkElem.textContent = currentUrl;
+      }
+
+      // Persona Begrüßung initialisieren
+      const dict = translations.de;
+      const personaTextEl = document.getElementById('personaSpeechText');
+      if (personaTextEl && dict) {
+        personaTextEl.textContent = dict.persona_greeting;
+      }
+
+      // Stimme laden (manche Browser laden Stimmen asynchron)
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.onvoiceschanged = () => {
+          // Stimmen bereit
+        };
+      }
+    });
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-page').forEach(function(page) {
+        page.classList.remove('active');
+      });
+      document.querySelectorAll('.nav-menu button').forEach(function(btn) {
+        btn.classList.remove('active');
+      });
+
+      const targetPage = document.getElementById('tab-' + tabId);
+      const targetNav = document.getElementById('nav-' + tabId);
+
+      if (targetPage) targetPage.classList.add('active');
+      if (targetNav) targetNav.classList.add('active');
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function toggleFloatingMenu() {
+      const menu = document.getElementById('floatingContactMenu');
+      if (menu) {
+        menu.classList.toggle('open');
+      }
+    }
+
+    function exportFullPDF() {
+      const linkElem = document.getElementById('pdfWebLink');
+      if (linkElem) {
+        const currentUrl = window.location.href;
+        linkElem.href = currentUrl;
+        linkElem.textContent = currentUrl;
+      }
+      window.print();
+    }
+
+    // Beim Laden den Website-Link initialisieren
+    window.addEventListener('DOMContentLoaded', () => {
+      const linkElem = document.getElementById('pdfWebLink');
+      if (linkElem) {
+        const currentUrl = window.location.href;
+        linkElem.href = currentUrl;
+        linkElem.textContent = currentUrl;
+      }
+    });
+  </script>
+</body>
+</html>
